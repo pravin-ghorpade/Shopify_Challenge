@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Inventory Tracker</title>
+{% endblock %}
+<style>
+
+.center {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+</style>
+{% block body%}
+
+<div class="container jumbotron p-3" style="text-align: center">
+    <h1 style="text-align: center"><b>Inventory Tracking System</b></h1>    
+
+</div>
+
+<div class="container " >
+    <div class="row">
+        <div class="col md-12">
+            <div class="jumbotron p-3">
+                <h2><b>Inventory List</b>  
+                    <button type="button"  class="btn btn-success float-right" data-toggle="modal" data-target="#mymodal">Add New Item</button> </h2>
+                    {% if inventory|length < 1 %}
+                    <h4 style="text-align: center">There are no items in the inventory. Create one below!</h4>
+                    {% else %}
+                    
+                    <table class="table table-hover table-dark" tr style="text-align: center;">
+                        <tr>
+                            <th>Item Id</th>
+                            <th>Name</th>
+                            <th>Quantity</th>
+                            <th>Type</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for item in inventory %}
+                            <tr>
+                                <td>{{ item.id }}</td>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.type }}</td>
+                                <td>
+                                    <a href="/update/{{item.id}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit{{item.id}}">Update</a>
+                                    <a href="/delete/{{item.id}}" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure To Delete ?')">Delete</a>
+                                </td>
+                    
+                            </tr>
+                        <!--Update Modal-->
+                        <div id="modaledit{{item.id}}" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header"> 
+                                    <h4 class="modal-title">Update Information</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="/update" method="POST">
+                                        <input type="hidden"  name="id" value="{{item.id}}">
+                                        <p>name1 <input type = "text" required="required" name = "name" placeholder="{{item.name}}" /></p>
+                                        <p>quantity <input type = "number" required="required" onkeypress="return event.charCode >= 48" min="1" name = "quantity" placeholder="{{item.quantity}}"/></p>
+                                        <p><label for="type">Choose a type:</label>
+                                            <select name="type" id="type">
+                                                <option value="Stationary">Stationary</option>
+                                                <option value="Toys">Toys</option>
+                                                <option value="Grossary">Grossary</option>
+                                                <option value="Electronics">Electronics</option>
+                                                <option value="Food and Drink">Food and Drink</option>
+                                                <option value="Home and Garden">Home and Garden</option>
+                                            </select></p>
+                                            <p><input type = "submit" class="btn btn-secondary" value = "Update" /></p>
+                                        </form>
+                                    </form>
+                                    </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> 
+                                </div> 
+                            </div>
+                            </div>
+                        </div>
+
+                        {% endfor %}
+                    </table>
+                    {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div style="text-align:center;">
+    <h1 style="text-align: center"><a href="/export" class="button center">Export Data to CSV</a></h1>
+</div>
+
+
+<!-- Add modal -->
+<div id="mymodal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+       <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Add New Item</h4>
+          </div>
+          <div class="modal-body">
+            <form action="/" method = "POST">
+                <p>Name <input type = "text" required="required" name = "name" /></p>
+                <p>Quantity <input type = "number" required="required" onkeypress="return event.charCode >= 48" min="0" name = "quantity" /></p>
+                <p><label for="type">Choose a type:</label>
+                <select name="type" id="type">
+                    <option value="Stationary">Stationary</option>
+                    <option value="Toys">Toys</option>
+                    <option value="Grossary">Grossary</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Food and Drink">Food and Drink</option>
+                    <option value="Home and Garden">Home and Garden</option>
+                 </select></p>
+                <p><input type = "submit" class="btn btn-secondary" value = "Add Item" /></p>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+       </div> 
+    </div>
+ </div>
+
+{% endblock %}
+
