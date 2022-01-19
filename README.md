@@ -5,7 +5,7 @@ This application has been created as a part of Shopify Backend Developer Intern 
 As a part of challenge I have implemented CRUD operations along with two additional features:
 1. Push a button export product data to a CSV
 2. Ability to assign/remove inventory items to a named group/collection
-3. Images folder has screenshots of working features.
+
 
 
 ### How To Run this application
@@ -45,3 +45,5 @@ This server will start on port 5000 by default. You can change this in `app.py` 
 if __name__ == "__main__":
     app.run(debug=True, port=<desired port>)
 ```
+
+Images folder contains screenshots of all working features.
