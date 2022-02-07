@@ -1,12 +1,5 @@
 # Invetory Management web application
 
-This application has been created as a part of Shopify Backend Developer Intern Challenge for Summer 2022
-
-As a part of challenge I have implemented CRUD operations along with two additional features:
-1. Push a button export product data to a CSV
-2. Ability to assign/remove inventory items to a named group/collection
-
-
 
 ### How To Run this application
 1. Install `virtualenv`:
